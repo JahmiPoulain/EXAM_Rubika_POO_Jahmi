@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 // Le joueur peut se deplacer, prendre un coup et utiliser son arme
 public class PlayerShip : MonoBehaviour
@@ -80,6 +81,4 @@ public class PlayerShip : MonoBehaviour
             //FireBullet();        
         }
     }
-
-    
 }

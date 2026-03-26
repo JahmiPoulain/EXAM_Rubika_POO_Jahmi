@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     [Header("Explosion")]
     public ExplosionManager explosionManager;
 
@@ -18,10 +19,10 @@ public class GameManager : MonoBehaviour
     public GameObject powerUpPrefab;
 
     // Variables publiques expos�es sans encapsulation
-    public int score;
+    int score;
     public int lives;
     public float playerSpeed = 5.0f;
-    public float bulletSpeed = 10.0f;
+    //public float bulletSpeed = 10.0f;
     public float enemySpeed = 3.0f;
     public float asteroidSpeed = 2.0f;
     public float spawnRate = 2.0f;
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour
     // Listes pour suivre tous les objets du jeu
     private List<GameObject> enemies = new List<GameObject>();
     private List<GameObject> asteroids = new List<GameObject>();
-    private List<GameObject> bullets = new List<GameObject>();
+   // private List<GameObject> bullets = new List<GameObject>();
     public List<GameObject> powerUps = new List<GameObject>();
 
     // Variables pour le timing
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
     public TMPro.TMP_Text scoreText;
     public TMPro.TMP_Text livesText;
     public GameObject gameOverPanel;
-    public TMPro.TMP_Text powerupMessageText; // Pour afficher les messages de powerup
+    //public TMPro.TMP_Text powerupMessageText; // Pour afficher les messages de powerup
     public TMPro.TMP_Text timeText; // Pour afficher le temps �coul�
     public GameObject playerDamageEffect; // Effet visuel quand un ennemi traverse
 
@@ -100,6 +101,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(instance);
+        }
+    }
     void Start()
     {
         // Initialisation
@@ -111,9 +123,14 @@ public class GameManager : MonoBehaviour
         nextSpawnTime = Time.time + spawnRate;
         UpdateUI();
         if (gameOverPanel) gameOverPanel.SetActive(false);
-        if (powerupMessageText) powerupMessageText.gameObject.SetActive(false);
+       // if (powerupMessageText) powerupMessageText.gameObject.SetActive(false);
 
         
+    }
+
+    public void AddScore(int amount)
+    {
+        score += amount;
     }
 
     // Nouvelle m�thode pour configurer les composants de collision
@@ -417,7 +434,7 @@ public class GameManager : MonoBehaviour
 
     void MoveBullets()
     {
-        for (int i = bullets.Count - 1; i >= 0; i--)
+      /*  for (int i = bullets.Count - 1; i >= 0; i--)
         {
             if (bullets[i] != null)
             {
@@ -445,7 +462,7 @@ public class GameManager : MonoBehaviour
             {
                 bullets.RemoveAt(i);
             }
-        }
+        }*/
     }
 
     void SpawnEnemiesAndAsteroids()
@@ -504,7 +521,7 @@ public class GameManager : MonoBehaviour
 
     public void ApplyPowerUp()
     {
-        // Augmenter le nombre de projectiles pour tous les power-ups
+    /*    // Augmenter le nombre de projectiles pour tous les power-ups
         if (bulletCount < maxBulletCount)
         {
             bulletCount++;
@@ -517,13 +534,13 @@ public class GameManager : MonoBehaviour
             // Bonus de score si le joueur a d�j� le maximum de projectiles
             score += 200;
             StartCoroutine(ShowPowerupMessage("Max Weapon Level! +200 Score"));
-        }
+        }*/
     }
 
     // Coroutine pour afficher un message temporaire
-    IEnumerator ShowPowerupMessage(string message)
+   /* IEnumerator ShowPowerupMessage(string message)
     {
-        if (powerupMessageText != null)
+       if (powerupMessageText != null)
         {
             powerupMessageText.text = message;
             powerupMessageText.gameObject.SetActive(true);
@@ -531,7 +548,7 @@ public class GameManager : MonoBehaviour
             powerupMessageText.gameObject.SetActive(false);
         }
         yield return null;
-    }
+    }*/
 
     void UpdateUI()
     {

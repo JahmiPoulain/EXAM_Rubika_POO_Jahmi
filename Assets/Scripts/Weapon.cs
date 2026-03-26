@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-
+using System.Collections;
+using System.Collections.Generic;
 public class Weapon : MonoBehaviour
 {
     public GameObject bulletPrefab;
@@ -9,9 +10,16 @@ public class Weapon : MonoBehaviour
     [SerializeField] float bulletSpacing = 0.5f; // Espacement horizontal entre les projectiles
     [SerializeField] int maxBulletCount = 5; // Limite maximale de projectiles simultan�s
 
+    private List<GameObject> bullets = new List<GameObject>();
+
     protected float fireRate = 0.1f;
     float fireRateTimer;
 
+    public TMPro.TMP_Text powerupMessageText; // Pour afficher les messages de powerup
+    private void Start()
+    {
+        if (powerupMessageText) powerupMessageText.gameObject.SetActive(false);
+    }
     private void Update()
     {
         fireRateTimer += Time.deltaTime;
@@ -51,5 +59,35 @@ public class Weapon : MonoBehaviour
         {
             audioSource.Play();
         }
+    }
+
+    public void ApplyPowerUp()
+    {
+        // Augmenter le nombre de projectiles pour tous les power-ups
+        if (bulletCount < maxBulletCount)
+        {
+            bulletCount++;
+
+            // Affichage d'un message temporaire pour informer le joueur
+            StartCoroutine(ShowPowerupMessage("Weapon Upgraded! Bullets: " + bulletCount));
+        }
+        else
+        {
+            // Bonus de score si le joueur a d�j� le maximum de projectiles
+            GameManager.instance.AddScore(200);
+            StartCoroutine(ShowPowerupMessage("Max Weapon Level! +200 Score"));
+        }
+    }
+
+    IEnumerator ShowPowerupMessage(string message)
+    {
+        if (powerupMessageText != null)
+        {
+            powerupMessageText.text = message;
+            powerupMessageText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2.0f);
+            powerupMessageText.gameObject.SetActive(false);
+        }
+        yield return null;
     }
 }

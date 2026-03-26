@@ -21,19 +21,20 @@ public class BulletCollider : Collider
         {
             // Balle touche ennemi
             gameManager.HandleBulletEnemyCollision(gameObject, collision.gameObject);
-            gameManager.score += 100;
+            gameManager.AddScore(100);
 
             // Chance de générer un power-up
             if (Random.value < 0.5f)
             {
                 gameManager.SpawnPowerUp(collision.transform.position);
             }
+            
         }
         else if (collision.gameObject.CompareTag("Asteroid"))
         {
             // Balle touche astéroïde
             gameManager.HandleBulletEnemyCollision(gameObject, collision.gameObject);
-            gameManager.score += 50;
+            gameManager.AddScore(50);
         }
     }
 } 
