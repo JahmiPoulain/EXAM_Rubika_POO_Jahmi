@@ -1,4 +1,4 @@
-// Script pour les ennemis
+/*// Script pour les ennemis
 using UnityEngine;
 
 public class EnemyCollider : Collider
@@ -21,4 +21,4 @@ public class EnemyCollider : Collider
             gameManager.HandlePlayerHit(gameObject);
         }
     }
-}
+}*/

@@ -7,7 +7,7 @@ public class PlayerShip : MonoBehaviour
     private GameManager gameManager;
     private PlayerInputManager inputsManager;
     GameObject inputManager;
-
+    Weapon weapon;
     // Variables dupliquées qui créent des dépendances
     public float speed;
     public int lives;
@@ -25,6 +25,10 @@ public class PlayerShip : MonoBehaviour
         {
             gameObject.AddComponent<PlayerCollider>();
         }
+
+        weapon = new Weapon();
+        weapon.transform.parent = transform;
+        weapon.transform.localPosition = Vector3.zero;
         // Initialisation des variables
         // speed = gameManager.playerSpeed;
         // lives = gameManager.lives;
@@ -73,7 +77,7 @@ public class PlayerShip : MonoBehaviour
 
         if (PlayerInputManager.instance.fireInput)
         {
-            FireBullet();        
+            //FireBullet();        
         }
     }
 

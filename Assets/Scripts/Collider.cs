@@ -2,7 +2,8 @@
 
 public class Collider : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] protected string objectTag;
+
     void Start()
     {
         if (GetComponent<Rigidbody>() == null)
@@ -45,11 +46,5 @@ public class Collider : MonoBehaviour
           // D�finir le tag
           gameObject.tag = tag;
         return boxCollider;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

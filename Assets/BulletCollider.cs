@@ -1,16 +1,16 @@
 ﻿// Script pour les projectiles
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class BulletCollider : Collider
 {
     private GameManager gameManager;
-
+   // [SerializeField] Vector3 boxColliderSize;
+    //[SerializeField] string objectTag;
     void Start()
     {
         gameManager = FindFirstObjectByType<GameManager>();
         // Collider plus petit pour les balles
-        SetupCollisionComponents(true,false,"Bullet").size = new Vector3(0.3f, 0.3f, 0.5f);     
+        SetupCollisionComponents(true,false, objectTag).size = new Vector3(0.3f, 0.3f, 0.5f);     
     }
 
     // Utilisons OnCollisionEnter au lieu de OnTriggerEnter
@@ -36,4 +36,4 @@ public class BulletCollider : Collider
             gameManager.score += 50;
         }
     }
-}
+} 
