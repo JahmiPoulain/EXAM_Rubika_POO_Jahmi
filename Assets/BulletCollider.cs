@@ -7,12 +7,13 @@ public class BulletCollider : MonoBehaviour
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     // Utilisons OnCollisionEnter au lieu de OnTriggerEnter
     void OnCollisionEnter(Collision collision)
     {
+        if (gameManager == null) return;
         if (collision.gameObject.CompareTag("Enemy"))
         {
             // Balle touche ennemi
