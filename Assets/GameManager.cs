@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerShip;
     public GameObject enemyPrefab;
     public GameObject asteroidPrefab;
-    public GameObject bulletPrefab;
+   // public GameObject bulletPrefab;
     public GameObject explosionPrefab;
     public GameObject powerUpPrefab;
 
@@ -27,10 +27,10 @@ public class GameManager : MonoBehaviour
     public float spawnRate = 2.0f;
 
     // Nouvelles variables pour les fonctionnalit�s demand�es
-    [Header("Weapon Settings")]
-    public int bulletCount = 1; // Nombre de projectiles tir�s simultan�ment
-    public float bulletSpacing = 0.5f; // Espacement horizontal entre les projectiles
-    public int maxBulletCount = 5; // Limite maximale de projectiles simultan�s
+    //[Header("Weapon Settings")]
+   // public int bulletCount = 1; // Nombre de projectiles tir�s simultan�ment
+   // public float bulletSpacing = 0.5f; // Espacement horizontal entre les projectiles
+   // public int maxBulletCount = 5; // Limite maximale de projectiles simultan�s
 
     [Header("Difficulty Settings")]
     public float initialSpawnRate = 2.0f; // Taux de spawn initial
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
         // Initialisation
         score = 0;
         lives = 3;
-        bulletCount = 1;
+  //      bulletCount = 1;
         gameTime = 0f;
         spawnRate = initialSpawnRate;
         nextSpawnTime = Time.time + spawnRate;
@@ -245,12 +245,13 @@ public class GameManager : MonoBehaviour
 
     void HandlePlayerInput()
     {
+     /*   
         // D�placement du joueur
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = PlayerInputManager.instance.horizontalInput;
+        float verticalInput = PlayerInputManager.instance.verticalInput;
 
         // D�placement sur le plan XZ
-        Vector3 movement = new Vector3(horizontalInput, 0, verticalInput) * playerSpeed * Time.deltaTime;
+        Vector3 movement = PlayerInputManager.instance.movementInput * playerSpeed * Time.deltaTime;
         playerShip.transform.position += movement;
 
         // Calcul des angles de rotation pour les deux axes
@@ -279,12 +280,12 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             FireBullet();
-        }
+        }*/
     }
 
     void FireBullet()
     {
-        // Calcul de la position de d�part pour centrer les projectiles
+      /*  // Calcul de la position de d�part pour centrer les projectiles
         float startX = -((bulletCount - 1) * bulletSpacing) / 2;
 
         // Cr�ation de plusieurs balles c�te � c�te
@@ -312,7 +313,7 @@ public class GameManager : MonoBehaviour
         if (audioSource != null)
         {
             audioSource.Play();
-        }
+        }*/
     }
 
     void MoveEnemies()

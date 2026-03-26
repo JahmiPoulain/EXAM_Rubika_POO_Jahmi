@@ -1,28 +1,73 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
+// Le joueur peut se deplacer, prendre un coup et utiliser son arme
 public class PlayerShip : MonoBehaviour
 {
-    // Références au GameManager pour accéder aux données
+    // RÃ©fÃ©rences au GameManager pour accÃ©der aux donnÃ©es
     private GameManager gameManager;
+    private PlayerInputManager inputsManager;
+    GameObject inputManager;
 
-    // Variables dupliquées qui créent des dépendances
+    // Variables dupliquÃ©es qui crÃ©ent des dÃ©pendances
     public float speed;
     public int lives;
 
     void Start()
     {
-        // Recherche du GameManager dans la scène
+        // Recherche du GameManager dans la scÃ¨ne
         gameManager = FindFirstObjectByType<GameManager>();
-
+        
         // Initialisation des variables
-        speed = gameManager.playerSpeed;
-        lives = gameManager.lives;
+        // speed = gameManager.playerSpeed;
+        // lives = gameManager.lives;
     }
 
     void Update()
     {
-        // Mise à jour des variables depuis le GameManager
-        speed = gameManager.playerSpeed;
-        lives = gameManager.lives;
+        HandlePlayerInput();
+        // Mise Ã  jour des variables depuis le GameManager
+        // speed = gameManager.playerSpeed;
+        // lives = gameManager.lives;
     }
+
+    void HandlePlayerInput()
+    {
+
+        // Dï¿½placement du joueur
+        float horizontalInput = PlayerInputManager.instance.horizontalInput;
+        float verticalInput = PlayerInputManager.instance.verticalInput;
+
+        // Dï¿½placement sur le plan XZ
+        Vector3 movement = PlayerInputManager.instance.movementInput * speed * Time.deltaTime;
+        transform.position += movement;
+
+        // Calcul des angles de rotation pour les deux axes
+        float tiltAngleZ = -horizontalInput * 30f; // Inclinaison latï¿½rale (gauche/droite)
+        float tiltAngleX = verticalInput * 15f;    // Inclinaison longitudinale (avant/arriï¿½re)
+
+        // Crï¿½ation d'une rotation qui combine les deux inclinaisons
+        Quaternion targetRotation = Quaternion.Euler(tiltAngleX, 0, tiltAngleZ);
+
+        // Application de la rotation avec un lissage pour un effet plus naturel
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 5f * Time.deltaTime);
+
+        // Si aucun input, retour progressif ï¿½ la rotation neutre
+        if (horizontalInput == 0 && verticalInput == 0)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, 5f * Time.deltaTime);
+        }
+
+        // Limites de l'ï¿½cran pour le joueur
+        Vector3 playerPos = transform.position;
+        playerPos.x = Mathf.Clamp(playerPos.x, -8.4f, 8.4f);
+        playerPos.z = Mathf.Clamp(playerPos.z, -11, -2.5f);
+        transform.position = playerPos;
+
+        if (PlayerInputManager.instance.fireInput)
+        {
+            FireBullet();        
+        }
+    }
+
+    
 }
