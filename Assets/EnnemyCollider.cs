@@ -1,13 +1,14 @@
-/*// Script pour les ennemis
+// Script pour les ennemis
 using UnityEngine;
 
-public class EnemyCollider : MonoBehaviour
+public class EnemyCollider : Collider
 {
     private GameManager gameManager;
 
     void Start()
     {
         gameManager = FindFirstObjectByType<GameManager>();
+        SetupCollisionComponents(true, false, "Enemy");
     }
 
     // Utilisons OnCollisionEnter au lieu de OnTriggerEnter
@@ -20,4 +21,4 @@ public class EnemyCollider : MonoBehaviour
             gameManager.HandlePlayerHit(gameObject);
         }
     }
-}*/
+}

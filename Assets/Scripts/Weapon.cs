@@ -2,7 +2,7 @@
 
 public class Weapon : MonoBehaviour
 {
-
+    public GameObject bulletPrefab;
     // Nouvelles variables pour les fonctionnalit�s demand�es
     [Header("Weapon Settings")]
     [SerializeField] int bulletCount = 1; // Nombre de projectiles tir�s simultan�ment
@@ -37,7 +37,7 @@ public class Weapon : MonoBehaviour
 
             // Configuration des composants de collision pour la balle
             // Les projectiles doivent avoir un Rigidbody pour les collisions
-            SetupCollisionComponents(bullet, true, false, "Bullet");
+            
 
             // Ajouter le script de gestion de collision � la balle
             bullet.AddComponent<BulletCollider>();

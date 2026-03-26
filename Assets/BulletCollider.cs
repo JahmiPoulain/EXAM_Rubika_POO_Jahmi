@@ -1,13 +1,16 @@
-// Script pour les projectiles
+ï»¿// Script pour les projectiles
 using UnityEngine;
+using UnityEngine.Rendering;
 
-public class BulletCollider : MonoBehaviour
+public class BulletCollider : Collider
 {
     private GameManager gameManager;
 
     void Start()
     {
         gameManager = FindFirstObjectByType<GameManager>();
+        // Collider plus petit pour les balles
+        SetupCollisionComponents(true,false,"Bullet").size = new Vector3(0.3f, 0.3f, 0.5f);     
     }
 
     // Utilisons OnCollisionEnter au lieu de OnTriggerEnter
@@ -20,7 +23,7 @@ public class BulletCollider : MonoBehaviour
             gameManager.HandleBulletEnemyCollision(gameObject, collision.gameObject);
             gameManager.score += 100;
 
-            // Chance de générer un power-up
+            // Chance de gÃ©nÃ©rer un power-up
             if (Random.value < 0.5f)
             {
                 gameManager.SpawnPowerUp(collision.transform.position);
@@ -28,7 +31,7 @@ public class BulletCollider : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Asteroid"))
         {
-            // Balle touche astéroïde
+            // Balle touche astÃ©roÃ¯de
             gameManager.HandleBulletEnemyCollision(gameObject, collision.gameObject);
             gameManager.score += 50;
         }

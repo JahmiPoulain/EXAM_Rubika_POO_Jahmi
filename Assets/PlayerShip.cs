@@ -16,7 +16,15 @@ public class PlayerShip : MonoBehaviour
     {
         // Recherche du GameManager dans la scène
         gameManager = FindFirstObjectByType<GameManager>();
-        
+
+        // S'assurer que le joueur a les composants n�cessaires pour les collisions
+        //SetupCollisionComponents(playerShip, true, false, "Player");
+
+        // Ajouter le script de gestion de collision au joueur
+        if (GetComponent<PlayerCollider>() == null)
+        {
+            gameObject.AddComponent<PlayerCollider>();
+        }
         // Initialisation des variables
         // speed = gameManager.playerSpeed;
         // lives = gameManager.lives;

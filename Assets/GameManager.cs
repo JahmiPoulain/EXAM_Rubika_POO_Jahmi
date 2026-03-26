@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using static Unity.VisualScripting.Metadata;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -113,56 +113,49 @@ public class GameManager : MonoBehaviour
         if (gameOverPanel) gameOverPanel.SetActive(false);
         if (powerupMessageText) powerupMessageText.gameObject.SetActive(false);
 
-        // S'assurer que le joueur a les composants n�cessaires pour les collisions
-        SetupCollisionComponents(playerShip, true, false, "Player");
-
-        // Ajouter le script de gestion de collision au joueur
-        if (playerShip.GetComponent<PlayerCollider>() == null)
-        {
-            playerShip.AddComponent<PlayerCollider>();
-        }
+        
     }
 
     // Nouvelle m�thode pour configurer les composants de collision
     void SetupCollisionComponents(GameObject obj, bool hasRigidbody, bool isTrigger, string tag)
     {
-        // Ajouter ou configurer le collider si n�cessaire
-        Collider collider = obj.GetComponent<Collider>();
-        if (collider == null)
-        {
-            // Ajouter un BoxCollider par d�faut
-            collider = obj.AddComponent<BoxCollider>();
+        /*  // Ajouter ou configurer le collider si n�cessaire
+          Collider collider = obj.GetComponent<Collider>();
+          if (collider == null)
+          {
+              // Ajouter un BoxCollider par d�faut
+              collider = obj.AddComponent<BoxCollider>();
 
-            // Ajuster la taille du collider en fonction du tag
-            BoxCollider boxCollider = (BoxCollider)collider;
-            if (tag == "Bullet")
-            {
-                // Collider plus petit pour les balles
-                boxCollider.size = new Vector3(0.3f, 0.3f, 0.5f);
-            }
-            else if (tag == "PowerUp")
-            {
-                // Collider plus grand pour les power-ups pour faciliter leur collecte
-                boxCollider.size = new Vector3(1.2f, 1.2f, 1.2f);
-            }
-        }
+              // Ajuster la taille du collider en fonction du tag
+              BoxCollider boxCollider = (BoxCollider)collider;
+              if (tag == "Bullet")
+              {
+                  // Collider plus petit pour les balles
+                  boxCollider.size = new Vector3(0.3f, 0.3f, 0.5f);
+              }
+              else if (tag == "PowerUp")
+              {
+                  // Collider plus grand pour les power-ups pour faciliter leur collecte
+                  boxCollider.size = new Vector3(1.2f, 1.2f, 1.2f);
+              }
+          }
 
-        // Configurer le collider comme trigger ou non
-        collider.isTrigger = isTrigger;
+          // Configurer le collider comme trigger ou non
+          collider.isTrigger = isTrigger;
 
-        // Ajouter un Rigidbody si n�cessaire
-        if (hasRigidbody && obj.GetComponent<Rigidbody>() == null)
-        {
-            Rigidbody rb = obj.AddComponent<Rigidbody>();
-            rb.useGravity = false; // D�sactiver la gravit� pour un jeu spatial
-            rb.isKinematic = false; // Ne pas rendre kin�matique pour permettre les collisions physiques
-            rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY; // Figer certains axes
-            rb.interpolation = RigidbodyInterpolation.Extrapolate;
-            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-        }
+          // Ajouter un Rigidbody si n�cessaire
+          if (hasRigidbody && obj.GetComponent<Rigidbody>() == null)
+          {
+              Rigidbody rb = obj.AddComponent<Rigidbody>();
+              rb.useGravity = false; // D�sactiver la gravit� pour un jeu spatial
+              rb.isKinematic = false; // Ne pas rendre kin�matique pour permettre les collisions physiques
+              rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY; // Figer certains axes
+              rb.interpolation = RigidbodyInterpolation.Extrapolate;
+              rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+          }
 
-        // D�finir le tag
-        obj.tag = tag;
+          // D�finir le tag
+          obj.tag = tag;*/
     }
 
     public void HandleBulletEnemyCollision(GameObject bullet, GameObject enemy)
@@ -468,7 +461,7 @@ public class GameManager : MonoBehaviour
                 GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 
                 // Configuration des composants de collision pour l'ennemi
-                SetupCollisionComponents(enemy, true, false, "Enemy");
+                //SetupCollisionComponents(enemy, true, false, "Enemy");
 
                 // Ajouter le script de gestion de collision � l'ennemi
                 enemy.AddComponent<DangerCollider>();
@@ -484,7 +477,7 @@ public class GameManager : MonoBehaviour
                 GameObject asteroid = Instantiate(asteroidPrefab, spawnPosition, Quaternion.identity);
 
                 // Configuration des composants de collision pour l'ast�ro�de
-                SetupCollisionComponents(asteroid, true, false, "Asteroid");
+                //SetupCollisionComponents(asteroid, true, false, "Asteroid");
 
                 // Ajouter le script de gestion de collision � l'ast�ro�de
                 asteroid.AddComponent<DangerCollider>();
@@ -501,7 +494,7 @@ public class GameManager : MonoBehaviour
         GameObject powerUp = Instantiate(powerUpPrefab, position, Quaternion.identity);
 
         // Configuration des composants de collision pour le power-up
-        SetupCollisionComponents(powerUp, true, false, "PowerUp");
+        //SetupCollisionComponents(powerUp, true, false, "PowerUp");
 
         // Ajouter le script de gestion de collision au power-up
         powerUp.AddComponent<PowerUpCollider>();

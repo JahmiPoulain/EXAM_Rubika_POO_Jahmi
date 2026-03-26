@@ -1,7 +1,7 @@
-/*// Script pour les astéroïdes
+// Script pour les astéroïdes
 using UnityEngine;
 
-public class AsteroidCollider : MonoBehaviour
+public class AsteroidCollider : Collider
 {
     private GameManager gameManager;
 
@@ -20,4 +20,4 @@ public class AsteroidCollider : MonoBehaviour
             gameManager.HandlePlayerHit(gameObject);
         }
     }
-}*/
+}
