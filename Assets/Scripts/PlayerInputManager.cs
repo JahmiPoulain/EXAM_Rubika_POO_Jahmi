@@ -29,8 +29,8 @@ public class PlayerInputManager : MonoBehaviour
     void HandlePlayerInput()
     {
         // D�placement du joueur
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
 
         // D�placement sur le plan XZ normalisé
         movementInput = new Vector3(horizontalInput, 0, verticalInput).normalized;

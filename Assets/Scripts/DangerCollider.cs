@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DangerCollider : Collider
+public abstract class DangerCollider : Collider
 {
     protected GameManager gameManager;
 
@@ -20,6 +20,12 @@ public class DangerCollider : Collider
         {
             // Le joueur a touché un ennemi
             gameManager.HandlePlayerHit(gameObject);
+            Debug.Log("DESTROY");
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(gameObject);
         }
     }
 }

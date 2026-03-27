@@ -83,18 +83,23 @@ public class GameManager : MonoBehaviour
 
         if (hitObject.CompareTag("Enemy"))
         {
-            Destroy(hitObject);
+            Debug.Log("Hit Enemy");
             enemies.Remove(hitObject);
+            //Destroy(hitObject);
+            
         }
         else if (hitObject.CompareTag("Asteroid"))
         {
-            Destroy(hitObject);
+            Debug.Log("Hit Asteroid");
             asteroids.Remove(hitObject);
+            //Destroy(hitObject);
+            Debug.Log(hitObject);
+            
         }
 
         // Perte d'une vie
         lives--;
-
+        Debug.Log(lives);
         if (lives <= 0)
         {
             GameOver();
@@ -248,6 +253,7 @@ public class GameManager : MonoBehaviour
             // Lorsque le d�compte atteint z�ro
             if (restartCountdown <= 0)
             {
+                Debug.Log("RESTART GAME");
                 RestartGame();
             }
         }
@@ -481,7 +487,7 @@ public class GameManager : MonoBehaviour
                 //SetupCollisionComponents(enemy, true, false, "Enemy");
 
                 // Ajouter le script de gestion de collision � l'ennemi
-                enemy.AddComponent<EnemyCollider>();
+                if (!enemy.GetComponent<EnemyCollider>()) enemy.AddComponent<EnemyCollider>();
 
                 enemies.Add(enemy);
             }
@@ -497,7 +503,8 @@ public class GameManager : MonoBehaviour
                 //SetupCollisionComponents(asteroid, true, false, "Asteroid");
 
                 // Ajouter le script de gestion de collision � l'ast�ro�de
-                asteroid.AddComponent<AsteroidCollider>();
+                if (!asteroid.GetComponent<AsteroidCollider>()) asteroid.AddComponent<AsteroidCollider>();
+                
 
                 asteroids.Add(asteroid);
             }

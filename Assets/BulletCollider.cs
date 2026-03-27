@@ -1,4 +1,5 @@
 ﻿// Script pour les projectiles
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class BulletCollider : Collider
@@ -28,14 +29,14 @@ public class BulletCollider : Collider
             // Balle touche ennemi
           //  gameManager.HandleBulletEnemyCollision(gameObject, collision.gameObject);
             gameManager.AddScore(100);
-            Collided(collision.gameObject);
+            
             // Chance de générer un power-up
             if (Random.value < 0.5f)
             {
                 gameManager.SpawnPowerUp(collision.transform.position);
                 
             }
-            
+            Collided(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("Asteroid"))
         {
@@ -58,5 +59,9 @@ public class BulletCollider : Collider
             // Fallback vers l'explosion originale
             Instantiate(explosionPrefab, collided.transform.position, Quaternion.identity);
         }
+
+        //Destruction de la balle
+        Destroy(gameObject);
+       // bullets.Remove(bullet);
     }
 } 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Collider : MonoBehaviour
+public abstract class Collider : MonoBehaviour
 {
     [SerializeField] protected string objectTag;
 
