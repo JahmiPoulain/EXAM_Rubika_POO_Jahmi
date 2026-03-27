@@ -5,10 +5,14 @@ public class DangerManager : MonoBehaviour
 {
     private List<GameObject> enemies = new List<GameObject>();
     private List<GameObject> asteroids = new List<GameObject>();
+
+    private List<Rigidbody> enemiesRb = new List<Rigidbody>();
+    private List<Rigidbody> asteroidsRb = new List<Rigidbody>();
+
     public GameObject enemyPrefab;
     public GameObject asteroidPrefab;
     // Variables pour le timing
-    private float nextSpawnTime;
+    public float nextSpawnTime; //{ get; private set; }
 
     public float bulletSpeed = 10.0f;
     public float enemySpeed = 3.0f;
@@ -28,7 +32,7 @@ public class DangerManager : MonoBehaviour
     }
     private void Update()
     {
-        if (GameManager.instance != null )
+        if (GameManager.instance != null)
         {
             spawnRate = Mathf.Max(minSpawnRate, initialSpawnRate - (spawnRateDifficulty * GameManager.instance.minutesPlayed));
             if (GameManager.instance.isGameOver)
@@ -36,7 +40,27 @@ public class DangerManager : MonoBehaviour
                 spawnRate = initialSpawnRate;
                 nextSpawnTime = Time.time + spawnRate;
             }
-        }       
+
+            if (GameManager.instance.isGameOver)
+            {
+                foreach (GameObject enemy in enemies)
+                {
+                    Destroy(enemy);
+                }
+                enemies.Clear();
+                enemiesRb.Clear();
+                foreach (GameObject asteroid in asteroids)
+                {
+                    Destroy(asteroid);
+                }
+                asteroids.Clear();
+                asteroidsRb.Clear();
+
+            }
+        }
+        SpawnEnemiesAndAsteroids();
+        MoveEnemies();
+        MoveAsteroids();
     }
     void SpawnEnemiesAndAsteroids()
     {
@@ -49,7 +73,7 @@ public class DangerManager : MonoBehaviour
                 // Position de spawn sur l'axe Z au lieu de Y
                 Vector3 spawnPosition = new Vector3(randomX, 0, 9);
                 GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-
+                
                 // Configuration des composants de collision pour l'ennemi
                 //SetupCollisionComponents(enemy, true, false, "Enemy");
 
@@ -57,6 +81,7 @@ public class DangerManager : MonoBehaviour
                 if (!enemy.GetComponent<EnemyCollider>()) enemy.AddComponent<EnemyCollider>();
 
                 enemies.Add(enemy);
+                enemiesRb.Add(enemy.GetComponent<Rigidbody>());
             }
             else
             {
@@ -74,6 +99,7 @@ public class DangerManager : MonoBehaviour
 
 
                 asteroids.Add(asteroid);
+                asteroidsRb.Add(asteroid.GetComponent<Rigidbody>());
             }
 
             nextSpawnTime = Time.time + spawnRate;
@@ -86,7 +112,7 @@ public class DangerManager : MonoBehaviour
             if (enemies[i] != null)
             {
                 // Utiliser le Rigidbody pour le mouvement
-                Rigidbody rb = enemies[i].GetComponent<Rigidbody>();
+                Rigidbody rb = enemiesRb[i];//enemies[i].GetComponent<Rigidbody>();
                 if (rb != null)
                 {
                     // Appliquer directement une v�locit� au Rigidbody
@@ -113,14 +139,15 @@ public class DangerManager : MonoBehaviour
                     // Destruction de l'ennemi
                     Destroy(enemies[i]);
                     enemies.RemoveAt(i);
+                    enemiesRb.RemoveAt(i);
 
-                    // V�rifier si le joueur n'a plus de vies
-                    
+
                 }
             }
             else
             {
                 enemies.RemoveAt(i);
+                enemiesRb.RemoveAt(i);
             }
         }
     }
@@ -135,7 +162,7 @@ public class DangerManager : MonoBehaviour
                 float randomX = Random.Range(-0.5f, 0.5f);
 
                 // Utiliser le Rigidbody pour le mouvement
-                Rigidbody rb = asteroids[i].GetComponent<Rigidbody>();
+                Rigidbody rb = asteroidsRb[i];//asteroids[i].GetComponent<Rigidbody>();
                 if (rb != null)
                 {
                     // Appliquer directement une v�locit� au Rigidbody
@@ -166,12 +193,14 @@ public class DangerManager : MonoBehaviour
 
                     // Destruction de l'ast�ro�de
                     Destroy(asteroids[i]);
-                    asteroids.RemoveAt(i);                    
+                    asteroids.RemoveAt(i);
+                    asteroidsRb.RemoveAt(i);
                 }
             }
             else
             {
                 asteroids.RemoveAt(i);
+                asteroidsRb.RemoveAt(i);
             }
         }
     }

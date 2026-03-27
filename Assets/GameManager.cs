@@ -212,7 +212,7 @@ public class GameManager : MonoBehaviour
 
             // Calcul du nouveau taux de spawn en fonction du temps �coul� (en minutes)
             minutesPlayed = gameTime / 2f;
-           // spawnRate = Mathf.Max(minSpawnRate, initialSpawnRate - (spawnRateDifficulty * minutesPlayed));
+            // spawnRate = Mathf.Max(minSpawnRate, initialSpawnRate - (spawnRateDifficulty * minutesPlayed));
 
             // Affichage du temps de jeu (optionnel)
             if (timeText != null)
@@ -223,26 +223,27 @@ public class GameManager : MonoBehaviour
             }
 
             // Gestion des entr�es du joueur
-           // HandlePlayerInput();
+            // HandlePlayerInput();
 
             // D�placement de tous les objets
             //MoveEnemies();
-           // MoveAsteroids();
-           // MoveBullets();
+            // MoveAsteroids();
+            // MoveBullets();
 
             // Nous ne v�rifions plus les collisions manuellement
             // Les collisions sont maintenant g�r�es par les �v�nements OnTriggerEnter/OnCollisionEnter
 
             // G�n�ration de nouveaux ennemis/ast�ro�des
-           // SpawnEnemiesAndAsteroids();
+            // SpawnEnemiesAndAsteroids();
 
             // Mise � jour de l'UI
             UpdateUI();
+            if (lives <= 0)
+            {
+                GameOver();
+            }
         }
-        if (lives <= 0)
-        {
-            GameOver();
-        }
+        
         // Gestion du d�compte de red�marrage
         if (isGameOver)
         {
@@ -253,11 +254,11 @@ public class GameManager : MonoBehaviour
             {
                 countdownText.text = "Red�marrage dans: " + Mathf.Ceil(restartCountdown).ToString();
             }
-
+            Debug.Log(restartCountdown);
             // Lorsque le d�compte atteint z�ro
             if (restartCountdown <= 0)
             {
-                Debug.Log("RESTART GAME");
+                //Debug.Log(restartCountdown);
                // restartGame = true;
                 RestartGame();
             }
@@ -628,13 +629,13 @@ public class GameManager : MonoBehaviour
             Destroy(asteroid);
         }
         asteroids.Clear();
-
-       /* foreach (GameObject bullet in bullets)
+        */
+        /*foreach (GameObject bullet in bullets)
         {
             Destroy(bullet);
         }
-        bullets.Clear();*/
-
+        bullets.Clear();
+        */
         foreach (GameObject powerUp in powerUps)
         {
             Destroy(powerUp);

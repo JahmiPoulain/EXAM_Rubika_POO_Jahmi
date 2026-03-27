@@ -28,9 +28,16 @@ public class Weapon : MonoBehaviour
             Debug.Log("FIRED");
             FireWeapon();
         }
+        if (GameManager.instance != null && GameManager.instance.isGameOver)
+        {
+            foreach (GameObject bullet in bullets)
+            {
+                Destroy(bullet);
+            }
+            bullets.Clear();
+        }
 
-
-    }
+        }
     void FireWeapon()
     {
         if ( fireRateTimer < fireRate) return;
