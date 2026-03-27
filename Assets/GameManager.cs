@@ -139,8 +139,8 @@ public class GameManager : MonoBehaviour
     }
 
     // Nouvelle m�thode pour configurer les composants de collision
-    void SetupCollisionComponents(GameObject obj, bool hasRigidbody, bool isTrigger, string tag)
-    {
+    //void SetupCollisionComponents(GameObject obj, bool hasRigidbody, bool isTrigger, string tag)
+   // {
         /*  // Ajouter ou configurer le collider si n�cessaire
           Collider collider = obj.GetComponent<Collider>();
           if (collider == null)
@@ -178,10 +178,10 @@ public class GameManager : MonoBehaviour
 
           // D�finir le tag
           obj.tag = tag;*/
-    }
+   // }
 
-    public void HandleBulletEnemyCollision(GameObject bullet, GameObject enemy)
-    {
+   // public void HandleBulletEnemyCollision(GameObject bullet, GameObject enemy)
+   // {
        /* // Explosion avec effet de fragmentation
         if (explosionManager != null)
         {
@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
         // Destruction de la balle
        // Destroy(bullet);
       //  bullets.Remove(bullet);
-    }
+   // }
 
     void Update()
     {
@@ -222,12 +222,12 @@ public class GameManager : MonoBehaviour
             }
 
             // Gestion des entr�es du joueur
-            HandlePlayerInput();
+           // HandlePlayerInput();
 
             // D�placement de tous les objets
             MoveEnemies();
             MoveAsteroids();
-            MoveBullets();
+           // MoveBullets();
 
             // Nous ne v�rifions plus les collisions manuellement
             // Les collisions sont maintenant g�r�es par les �v�nements OnTriggerEnter/OnCollisionEnter
@@ -259,8 +259,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void HandlePlayerInput()
-    {
+    //void HandlePlayerInput()
+    //{
      /*   
         // D�placement du joueur
         float horizontalInput = PlayerInputManager.instance.horizontalInput;
@@ -297,10 +297,10 @@ public class GameManager : MonoBehaviour
         {
             FireBullet();
         }*/
-    }
+   // }
 
-    void FireBullet()
-    {
+   // void FireBullet()
+    //{
       /*  // Calcul de la position de d�part pour centrer les projectiles
         float startX = -((bulletCount - 1) * bulletSpacing) / 2;
 
@@ -330,7 +330,7 @@ public class GameManager : MonoBehaviour
         {
             audioSource.Play();
         }*/
-    }
+   // }
 
     void MoveEnemies()
     {
@@ -438,8 +438,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void MoveBullets()
-    {
+   ////void MoveBullets()
+   // {
       /*  for (int i = bullets.Count - 1; i >= 0; i--)
         {
             if (bullets[i] != null)
@@ -469,7 +469,7 @@ public class GameManager : MonoBehaviour
                 bullets.RemoveAt(i);
             }
         }*/
-    }
+    //}
 
     void SpawnEnemiesAndAsteroids()
     {
@@ -526,8 +526,8 @@ public class GameManager : MonoBehaviour
         powerUps.Add(powerUp);
     }
 
-    public void ApplyPowerUp()
-    {
+   // public void ApplyPowerUp()
+   // {
     /*    // Augmenter le nombre de projectiles pour tous les power-ups
         if (bulletCount < maxBulletCount)
         {
@@ -542,7 +542,7 @@ public class GameManager : MonoBehaviour
             score += 200;
             StartCoroutine(ShowPowerupMessage("Max Weapon Level! +200 Score"));
         }*/
-    }
+   // }
 
     // Coroutine pour afficher un message temporaire
    /* IEnumerator ShowPowerupMessage(string message)
