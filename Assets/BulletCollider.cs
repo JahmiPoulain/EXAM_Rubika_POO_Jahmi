@@ -11,6 +11,8 @@ public class BulletCollider : Collider
     //[SerializeField] string objectTag;
     void Start()
     {
+        SetRb();
+        objectTag = "Bullet";
         gameManager = FindFirstObjectByType<GameManager>();
         explosionManager = FindFirstObjectByType<ExplosionManager>();
         // Collider plus petit pour les balles

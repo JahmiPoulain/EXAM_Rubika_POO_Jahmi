@@ -25,6 +25,7 @@ public class Weapon : MonoBehaviour
         fireRateTimer += Time.deltaTime;
         if (PlayerInputManager.instance.fireInput)
         {
+            Debug.Log("FIRED");
             FireWeapon();
         }
 

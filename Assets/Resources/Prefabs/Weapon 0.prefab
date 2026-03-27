@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5faa87dd68451434982cf585a412fbd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 5389837174213493555, guid: b783cfe89190393439df1653eff12aa8,
+    type: 3}
   bulletCount: 1
   bulletSpacing: 0.5
   maxBulletCount: 5

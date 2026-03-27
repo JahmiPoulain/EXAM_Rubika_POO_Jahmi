@@ -481,7 +481,7 @@ public class GameManager : MonoBehaviour
                 //SetupCollisionComponents(enemy, true, false, "Enemy");
 
                 // Ajouter le script de gestion de collision � l'ennemi
-                enemy.AddComponent<DangerCollider>();
+                enemy.AddComponent<EnemyCollider>();
 
                 enemies.Add(enemy);
             }
@@ -497,7 +497,7 @@ public class GameManager : MonoBehaviour
                 //SetupCollisionComponents(asteroid, true, false, "Asteroid");
 
                 // Ajouter le script de gestion de collision � l'ast�ro�de
-                asteroid.AddComponent<DangerCollider>();
+                asteroid.AddComponent<AsteroidCollider>();
 
                 asteroids.Add(asteroid);
             }

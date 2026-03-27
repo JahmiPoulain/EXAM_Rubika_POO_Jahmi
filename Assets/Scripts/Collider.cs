@@ -6,6 +6,11 @@ public class Collider : MonoBehaviour
 
     void Start()
     {
+        SetRb();
+    }
+
+    protected void SetRb()
+    {
         if (GetComponent<Rigidbody>() == null)
         {
             Rigidbody rb = gameObject.AddComponent<Rigidbody>();
@@ -44,7 +49,7 @@ public class Collider : MonoBehaviour
         boxCollider.isTrigger = isTrigger;
          
           // D�finir le tag
-          gameObject.tag = tag;
+        gameObject.tag = tag;
         return boxCollider;
     }
 }

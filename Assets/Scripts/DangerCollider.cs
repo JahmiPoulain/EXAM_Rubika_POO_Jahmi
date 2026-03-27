@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class DangerCollider : Collider
 {
-    private GameManager gameManager;
+    protected GameManager gameManager;
 
-    void Start()
+   /* void Start()
     {
-        gameManager = FindFirstObjectByType<GameManager>();
-        SetupCollisionComponents(true, false, objectTag);
+       // SetRb();
+       // gameManager = FindFirstObjectByType<GameManager>();
+        //SetupCollisionComponents(true, false, objectTag);
         //if (tag != null)
-    }
+    }*/
 
     // Utilisons OnCollisionEnter au lieu de OnTriggerEnter
     void OnCollisionEnter(Collision collision)
