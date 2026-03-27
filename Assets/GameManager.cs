@@ -3,7 +3,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -12,8 +11,8 @@ public class GameManager : MonoBehaviour
 
     // R�f�rence directe � tous les objets du jeu
     public GameObject playerShip;
-    public GameObject enemyPrefab;
-    public GameObject asteroidPrefab;
+  //  public GameObject enemyPrefab;
+  //  public GameObject asteroidPrefab;
    // public GameObject bulletPrefab;
     public GameObject explosionPrefab;
     public GameObject powerUpPrefab;
@@ -23,9 +22,9 @@ public class GameManager : MonoBehaviour
     public int lives;
     public float playerSpeed = 5.0f;
     //public float bulletSpeed = 10.0f;
-    public float enemySpeed = 3.0f;
-    public float asteroidSpeed = 2.0f;
-    public float spawnRate = 2.0f;
+  //  public float enemySpeed = 3.0f;
+  //  public float asteroidSpeed = 2.0f;
+   // public float spawnRate = 2.0f;
 
     // Nouvelles variables pour les fonctionnalit�s demand�es
     //[Header("Weapon Settings")]
@@ -34,10 +33,11 @@ public class GameManager : MonoBehaviour
    // public int maxBulletCount = 5; // Limite maximale de projectiles simultan�s
 
     [Header("Difficulty Settings")]
-    public float initialSpawnRate = 2.0f; // Taux de spawn initial
-    public float minSpawnRate = 0.5f; // Taux de spawn minimal (plus difficile)
-    public float spawnRateDifficulty = 0.1f; // R�duction du taux de spawn par minute
+   // public float initialSpawnRate = 2.0f; // Taux de spawn initial
+   // public float minSpawnRate = 0.5f; // Taux de spawn minimal (plus difficile)
+   // public float spawnRateDifficulty = 0.1f; // R�duction du taux de spawn par minute
     private float gameTime = 0f; // Temps de jeu �coul�
+    public float minutesPlayed { get; private set; }
 
     // Listes pour suivre tous les objets du jeu
     private List<GameObject> enemies = new List<GameObject>();
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     public TMPro.TMP_Text timeText; // Pour afficher le temps �coul�
     public GameObject playerDamageEffect; // Effet visuel quand un ennemi traverse
 
-    private bool isGameOver = false;
+    public bool isGameOver { get; private set; }
     private float restartCountdown = 3.0f;
     public TMPro.TMP_Text countdownText;
 
@@ -66,10 +66,10 @@ public class GameManager : MonoBehaviour
     // Voici les scripts � cr�er pour le syst�me de trigger/collision Unity
     // Note pour les �tudiants : Ces scripts devraient �tre dans des fichiers s�par�s pour respecter les principes SOLID
 
-    
 
-   
 
+
+    //bool restartGame;
    
 
    
@@ -119,13 +119,14 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        isGameOver = false;
         // Initialisation
         score = 0;
         lives = 3;
   //      bulletCount = 1;
         gameTime = 0f;
-        spawnRate = initialSpawnRate;
-        nextSpawnTime = Time.time + spawnRate;
+      //  spawnRate = initialSpawnRate;
+       // nextSpawnTime = Time.time + spawnRate;
         UpdateUI();
         if (gameOverPanel) gameOverPanel.SetActive(false);
        // if (powerupMessageText) powerupMessageText.gameObject.SetActive(false);
@@ -210,8 +211,8 @@ public class GameManager : MonoBehaviour
             gameTime += Time.deltaTime;
 
             // Calcul du nouveau taux de spawn en fonction du temps �coul� (en minutes)
-            float minutesPlayed = gameTime / 2f;
-            spawnRate = Mathf.Max(minSpawnRate, initialSpawnRate - (spawnRateDifficulty * minutesPlayed));
+            minutesPlayed = gameTime / 2f;
+           // spawnRate = Mathf.Max(minSpawnRate, initialSpawnRate - (spawnRateDifficulty * minutesPlayed));
 
             // Affichage du temps de jeu (optionnel)
             if (timeText != null)
@@ -225,20 +226,23 @@ public class GameManager : MonoBehaviour
            // HandlePlayerInput();
 
             // D�placement de tous les objets
-            MoveEnemies();
-            MoveAsteroids();
+            //MoveEnemies();
+           // MoveAsteroids();
            // MoveBullets();
 
             // Nous ne v�rifions plus les collisions manuellement
             // Les collisions sont maintenant g�r�es par les �v�nements OnTriggerEnter/OnCollisionEnter
 
             // G�n�ration de nouveaux ennemis/ast�ro�des
-            SpawnEnemiesAndAsteroids();
+           // SpawnEnemiesAndAsteroids();
 
             // Mise � jour de l'UI
             UpdateUI();
         }
-
+        if (lives <= 0)
+        {
+            GameOver();
+        }
         // Gestion du d�compte de red�marrage
         if (isGameOver)
         {
@@ -254,11 +258,17 @@ public class GameManager : MonoBehaviour
             if (restartCountdown <= 0)
             {
                 Debug.Log("RESTART GAME");
+               // restartGame = true;
                 RestartGame();
             }
+
         }
     }
 
+    public void RemoveLife()
+    {
+        lives--;
+    }
     //void HandlePlayerInput()
     //{
      /*   
@@ -331,7 +341,7 @@ public class GameManager : MonoBehaviour
             audioSource.Play();
         }*/
    // }
-
+   /*
     void MoveEnemies()
     {
         for (int i = enemies.Count - 1; i >= 0; i--)
@@ -379,7 +389,8 @@ public class GameManager : MonoBehaviour
                 enemies.RemoveAt(i);
             }
         }
-    }
+    }*/
+    /*
 
     void MoveAsteroids()
     {
@@ -436,7 +447,7 @@ public class GameManager : MonoBehaviour
                 asteroids.RemoveAt(i);
             }
         }
-    }
+    }*/
 
    ////void MoveBullets()
    // {
@@ -471,7 +482,7 @@ public class GameManager : MonoBehaviour
         }*/
     //}
 
-    void SpawnEnemiesAndAsteroids()
+  /*  void SpawnEnemiesAndAsteroids()
     {
         if (Time.time > nextSpawnTime)
         {
@@ -511,7 +522,7 @@ public class GameManager : MonoBehaviour
 
             nextSpawnTime = Time.time + spawnRate;
         }
-    }
+    }*/
 
     public void SpawnPowerUp(Vector3 position)
     {
@@ -606,7 +617,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
 
         // Destruction de tous les objets
-        foreach (GameObject enemy in enemies)
+        /*foreach (GameObject enemy in enemies)
         {
             Destroy(enemy);
         }
@@ -635,8 +646,8 @@ public class GameManager : MonoBehaviour
         lives = 3;
       //  bulletCount = 1;
         gameTime = 0f;
-        spawnRate = initialSpawnRate;
-        nextSpawnTime = Time.time + spawnRate;
+     //   spawnRate = initialSpawnRate;
+      //  nextSpawnTime = Time.time + spawnRate;
 
         // Masquage du panel de game over
         gameOverPanel.SetActive(false);

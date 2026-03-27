@@ -1,7 +1,84 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class DangerManager : MonoBehaviour
 {
+    private List<GameObject> enemies = new List<GameObject>();
+    private List<GameObject> asteroids = new List<GameObject>();
+    public GameObject enemyPrefab;
+    public GameObject asteroidPrefab;
+    // Variables pour le timing
+    private float nextSpawnTime;
+
+    public float bulletSpeed = 10.0f;
+    public float enemySpeed = 3.0f;
+    public float asteroidSpeed = 2.0f;
+    public float spawnRate = 2.0f;
+
+    public float initialSpawnRate = 2.0f; // Taux de spawn initial
+    public float minSpawnRate = 0.5f; // Taux de spawn minimal (plus difficile)
+    public float spawnRateDifficulty = 0.1f; // R�duction du taux de spawn par minute
+                                             //private float gameTime = 0f; // Temps de jeu �coul�
+    public GameObject playerDamageEffect; // Effet visuel quand un ennemi traverse
+    private void Start()
+    {
+        spawnRate = initialSpawnRate;
+        nextSpawnTime = Time.time + spawnRate;
+       // gameTime = 0f;
+    }
+    private void Update()
+    {
+        if (GameManager.instance != null )
+        {
+            spawnRate = Mathf.Max(minSpawnRate, initialSpawnRate - (spawnRateDifficulty * GameManager.instance.minutesPlayed));
+            if (GameManager.instance.isGameOver)
+            {
+                spawnRate = initialSpawnRate;
+                nextSpawnTime = Time.time + spawnRate;
+            }
+        }       
+    }
+    void SpawnEnemiesAndAsteroids()
+    {
+        if (Time.time > nextSpawnTime)
+        {
+            if (Random.value < 0.3f)
+            {
+                // Spawn d'un ennemi
+                float randomX = Random.Range(-8f, 8f);
+                // Position de spawn sur l'axe Z au lieu de Y
+                Vector3 spawnPosition = new Vector3(randomX, 0, 9);
+                GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+
+                // Configuration des composants de collision pour l'ennemi
+                //SetupCollisionComponents(enemy, true, false, "Enemy");
+
+                // Ajouter le script de gestion de collision � l'ennemi
+                if (!enemy.GetComponent<EnemyCollider>()) enemy.AddComponent<EnemyCollider>();
+
+                enemies.Add(enemy);
+            }
+            else
+            {
+                // Spawn d'un ast�ro�de
+                float randomX = Random.Range(-8f, 8f);
+                // Position de spawn sur l'axe Z au lieu de Y
+                Vector3 spawnPosition = new Vector3(randomX, 0, 9);
+                GameObject asteroid = Instantiate(asteroidPrefab, spawnPosition, Quaternion.identity);
+
+                // Configuration des composants de collision pour l'ast�ro�de
+                //SetupCollisionComponents(asteroid, true, false, "Asteroid");
+
+                // Ajouter le script de gestion de collision � l'ast�ro�de
+                if (!asteroid.GetComponent<AsteroidCollider>()) asteroid.AddComponent<AsteroidCollider>();
+
+
+                asteroids.Add(asteroid);
+            }
+
+            nextSpawnTime = Time.time + spawnRate;
+        }
+    }
     void MoveEnemies()
     {
         for (int i = enemies.Count - 1; i >= 0; i--)
@@ -25,7 +102,7 @@ public class DangerManager : MonoBehaviour
                 if (enemies[i].transform.position.z < -12)
                 {
                     // Enlever un point de vie au joueur
-                    lives--;
+                    if(GameManager.instance != null) GameManager.instance.RemoveLife();
 
                     // Effet visuel pour montrer que l'ennemi a travers�
                     if (playerDamageEffect != null)
@@ -38,10 +115,7 @@ public class DangerManager : MonoBehaviour
                     enemies.RemoveAt(i);
 
                     // V�rifier si le joueur n'a plus de vies
-                    if (lives <= 0)
-                    {
-                        GameOver();
-                    }
+                    
                 }
             }
             else
@@ -82,7 +156,7 @@ public class DangerManager : MonoBehaviour
                 if (asteroids[i].transform.position.z < -12)
                 {
                     // Enlever un point de vie au joueur
-                    lives--;
+                    if (GameManager.instance != null) GameManager.instance.RemoveLife();
 
                     // Effet visuel pour montrer que l'ast�ro�de a travers�
                     if (playerDamageEffect != null)
@@ -92,13 +166,7 @@ public class DangerManager : MonoBehaviour
 
                     // Destruction de l'ast�ro�de
                     Destroy(asteroids[i]);
-                    asteroids.RemoveAt(i);
-
-                    // V�rifier si le joueur n'a plus de vies
-                    if (lives <= 0)
-                    {
-                        GameOver();
-                    }
+                    asteroids.RemoveAt(i);                    
                 }
             }
             else

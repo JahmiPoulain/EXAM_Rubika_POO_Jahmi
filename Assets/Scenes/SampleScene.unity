@@ -11688,6 +11688,7 @@ GameObject:
   - component: {fileID: 2040990981}
   - component: {fileID: 2040990982}
   - component: {fileID: 2040990983}
+  - component: {fileID: 2040990984}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11708,22 +11709,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerShip: {fileID: 663836049414597825}
-  enemyPrefab: {fileID: 196105707552078345, guid: c26ead1fcdf028b43af4ef8c40323011,
-    type: 3}
-  asteroidPrefab: {fileID: 5176812263706246583, guid: 2fa9efb7ce3b9f844b2aaed34986be3c,
-    type: 3}
   explosionPrefab: {fileID: 6403353413147890401, guid: f9177c7e254ee774498f31c299703063,
     type: 3}
   powerUpPrefab: {fileID: 4375325453614173916, guid: 2db4f101870e79f4ebaafac9e416bfa7,
     type: 3}
   lives: 0
   playerSpeed: 10
-  enemySpeed: 3
-  asteroidSpeed: 2
-  spawnRate: 2
-  initialSpawnRate: 3
-  minSpawnRate: 0.1
-  spawnRateDifficulty: 0.1
   powerUps: []
   scoreText: {fileID: 169593459}
   livesText: {fileID: 1207875883}
@@ -11793,6 +11784,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponsPrefabs:
   - {fileID: 4178053727562481427, guid: 6662792dd8285db428c3b62cef81ba64, type: 3}
+--- !u!114 &2040990984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040990978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac7dda447dceb114994216851cea0830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 196105707552078345, guid: c26ead1fcdf028b43af4ef8c40323011,
+    type: 3}
+  asteroidPrefab: {fileID: 5176812263706246583, guid: 2fa9efb7ce3b9f844b2aaed34986be3c,
+    type: 3}
+  bulletSpeed: 10
+  enemySpeed: 3
+  asteroidSpeed: 2
+  spawnRate: 2
+  initialSpawnRate: 2
+  minSpawnRate: 0.5
+  spawnRateDifficulty: 0.1
+  playerDamageEffect: {fileID: 6403353413147890401, guid: f9177c7e254ee774498f31c299703063,
+    type: 3}
 --- !u!1 &663836049414597825
 GameObject:
   m_ObjectHideFlags: 0
