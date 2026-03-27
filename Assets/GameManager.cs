@@ -70,10 +70,10 @@ public class GameManager : MonoBehaviour
 
 
     //bool restartGame;
-   
+    public TMPro.TMP_Text powerupMessageText; // Pour afficher les messages de powerup
 
-   
-    
+
+
 
     // M�thode pour g�rer les collisions avec le joueur
     public void HandlePlayerHit(GameObject hitObject)
@@ -129,9 +129,9 @@ public class GameManager : MonoBehaviour
        // nextSpawnTime = Time.time + spawnRate;
         UpdateUI();
         if (gameOverPanel) gameOverPanel.SetActive(false);
-       // if (powerupMessageText) powerupMessageText.gameObject.SetActive(false);
+        // if (powerupMessageText) powerupMessageText.gameObject.SetActive(false);
 
-        
+        if (powerupMessageText) powerupMessageText.gameObject.SetActive(false);
     }
 
     public void AddScore(int amount)
@@ -557,7 +557,7 @@ public class GameManager : MonoBehaviour
    // }
 
     // Coroutine pour afficher un message temporaire
-   /* IEnumerator ShowPowerupMessage(string message)
+    public IEnumerator ShowPowerupMessage(string message)
     {
        if (powerupMessageText != null)
         {
@@ -567,7 +567,7 @@ public class GameManager : MonoBehaviour
             powerupMessageText.gameObject.SetActive(false);
         }
         yield return null;
-    }*/
+    }
 
     void UpdateUI()
     {

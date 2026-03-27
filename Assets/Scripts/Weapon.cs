@@ -15,10 +15,10 @@ public class Weapon : MonoBehaviour
     protected float fireRate = 0.1f;
     float fireRateTimer;
 
-    public TMPro.TMP_Text powerupMessageText; // Pour afficher les messages de powerup
+   // public TMPro.TMP_Text powerupMessageText; // Pour afficher les messages de powerup
     private void Start()
     {
-        if (powerupMessageText) powerupMessageText.gameObject.SetActive(false);
+       //if (powerupMessageText) powerupMessageText.gameObject.SetActive(false);
     }
     private void Update()
     {
@@ -81,17 +81,17 @@ public class Weapon : MonoBehaviour
             bulletCount++;
 
             // Affichage d'un message temporaire pour informer le joueur
-            StartCoroutine(ShowPowerupMessage("Weapon Upgraded! Bullets: " + bulletCount));
+            StartCoroutine(GameManager.instance.ShowPowerupMessage("Weapon Upgraded! Bullets: " + bulletCount));
         }
         else
         {
             // Bonus de score si le joueur a d�j� le maximum de projectiles
             GameManager.instance.AddScore(200);
-            StartCoroutine(ShowPowerupMessage("Max Weapon Level! +200 Score"));
+            StartCoroutine(GameManager.instance.ShowPowerupMessage("Max Weapon Level! +200 Score"));
         }
     }
 
-    IEnumerator ShowPowerupMessage(string message)
+   /* IEnumerator ShowPowerupMessage(string message)
     {
         if (powerupMessageText != null)
         {
@@ -101,5 +101,5 @@ public class Weapon : MonoBehaviour
             powerupMessageText.gameObject.SetActive(false);
         }
         yield return null;
-    }
+    }*/
 }

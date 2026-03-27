@@ -6,6 +6,7 @@ public class DangerManager : MonoBehaviour
     private List<GameObject> enemies = new List<GameObject>();
     private List<GameObject> asteroids = new List<GameObject>();
 
+    // Liste des RigidBody pour éviter de faire des GetComponent<RigidBody> à chaques frames
     private List<Rigidbody> enemiesRb = new List<Rigidbody>();
     private List<Rigidbody> asteroidsRb = new List<Rigidbody>();
 
