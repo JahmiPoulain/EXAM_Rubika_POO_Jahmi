@@ -13,9 +13,11 @@ public class PowerUpCollider : Collider
         SetupCollisionComponents(true, false, objectTag).size = new Vector3(1.2f, 1.2f, 1.2f);
     }
 
-   /* // Update is called once per frame
-    void Update()
-    {
-        
-    }*/
+    void OnCollisionEnter(Collision collision)
+    {        
+        if (collision.gameObject.CompareTag("Player"))
+        {           
+            Destroy(gameObject);
+        }   
+    }
 }

@@ -14,16 +14,19 @@ public class PlayerCollider : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (gameManager == null) return;
-       /* if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Asteroid"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Asteroid"))
         {
             // Le joueur a été touché par un ennemi ou un astéroïde
             gameManager.HandlePlayerHit(collision.gameObject);
-        }*/
+            //Destroy(collision.gameObject);
+        }
         if (collision.gameObject.CompareTag("PowerUp"))
         {
+            Debug.Log("PowerUp");
             // Le joueur a collecté un power-up
-            gameManager.ApplyPowerUp();
-            Destroy(collision.gameObject);
+            // on dit au WeaponManager qu'il doit ameliorer les armes équipées
+            FindFirstObjectByType<WeaponManager>().ApplyPowerUpToWeapon();
+            //Destroy(collision.gameObject);
             gameManager.powerUps.Remove(collision.gameObject);
         }
     }

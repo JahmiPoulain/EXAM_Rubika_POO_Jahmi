@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -29,5 +28,10 @@ public class WeaponManager : MonoBehaviour
         equipedWeapon = Instantiate(weaponsPrefabs[ID], holder.position, Quaternion.identity);
         equipedWeapon.transform.SetParent(holder);
         equipedWeapon.transform.localPosition = Vector3.zero;
+    }
+
+    public void ApplyPowerUpToWeapon()
+    {
+        equipedWeapon.GetComponent<Weapon>().ApplyPowerUp();
     }
 }

@@ -1,5 +1,4 @@
 ﻿// Script pour les projectiles
-using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class BulletCollider : Collider

@@ -19,11 +19,11 @@ public abstract class DangerCollider : Collider
         if (collision.gameObject.CompareTag("Player"))
         {
             // Le joueur a touché un ennemi
-            gameManager.HandlePlayerHit(gameObject);
-            Debug.Log("DESTROY");
+            //gameManager.HandlePlayerHit(gameObject);
+           // Debug.Log("DESTROY");
             Destroy(gameObject);
         }
-        else if (collision.gameObject.CompareTag("Bullet"))
+        if (collision.gameObject.CompareTag("Bullet"))
         {
             Destroy(gameObject);
         }
