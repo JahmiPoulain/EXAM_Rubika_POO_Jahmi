@@ -4,9 +4,12 @@ public class Bullet : MonoBehaviour
 {
     Rigidbody rb;
     [SerializeField] float bulletSpeed = 10.0f;
+
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
         rb = GetComponent<Rigidbody>();
         if (rb != null)
         {

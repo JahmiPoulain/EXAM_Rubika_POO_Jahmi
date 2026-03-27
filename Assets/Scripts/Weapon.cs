@@ -23,6 +23,10 @@ public class Weapon : MonoBehaviour
     private void Update()
     {
         fireRateTimer += Time.deltaTime;
+        if (PlayerInputManager.instance.fireInput)
+        {
+            FireWeapon();
+        }
 
 
     }

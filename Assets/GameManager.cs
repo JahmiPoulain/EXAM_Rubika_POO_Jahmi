@@ -7,8 +7,8 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    [Header("Explosion")]
-    public ExplosionManager explosionManager;
+   // [Header("Explosion")]
+   // public ExplosionManager explosionManager;
 
     // R�f�rence directe � tous les objets du jeu
     public GameObject playerShip;
@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
 
     public void HandleBulletEnemyCollision(GameObject bullet, GameObject enemy)
     {
-        // Explosion avec effet de fragmentation
+       /* // Explosion avec effet de fragmentation
         if (explosionManager != null)
         {
             explosionManager.ExplodeObject(enemy);
@@ -186,15 +186,15 @@ public class GameManager : MonoBehaviour
         {
             // Fallback vers l'explosion originale
             Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
-        }
+        }*/
 
         // Destruction de l'ennemi
-        Destroy(enemy, 0.1f); // Court d�lai pour permettre � l'explosion de commencer
-        enemies.Remove(enemy);
+       // Destroy(enemy, 0.1f); // Court d�lai pour permettre � l'explosion de commencer
+       // enemies.Remove(enemy);
 
         // Destruction de la balle
-        Destroy(bullet);
-        bullets.Remove(bullet);
+       // Destroy(bullet);
+      //  bullets.Remove(bullet);
     }
 
     void Update()
@@ -611,11 +611,11 @@ public class GameManager : MonoBehaviour
         }
         asteroids.Clear();
 
-        foreach (GameObject bullet in bullets)
+       /* foreach (GameObject bullet in bullets)
         {
             Destroy(bullet);
         }
-        bullets.Clear();
+        bullets.Clear();*/
 
         foreach (GameObject powerUp in powerUps)
         {
@@ -626,7 +626,7 @@ public class GameManager : MonoBehaviour
         // R�initialisation des variables
         score = 0;
         lives = 3;
-        bulletCount = 1;
+      //  bulletCount = 1;
         gameTime = 0f;
         spawnRate = initialSpawnRate;
         nextSpawnTime = Time.time + spawnRate;

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 // Le joueur peut se deplacer, prendre un coup et utiliser son arme
 public class PlayerShip : MonoBehaviour
@@ -8,7 +7,8 @@ public class PlayerShip : MonoBehaviour
     private GameManager gameManager;
     private PlayerInputManager inputsManager;
     GameObject inputManager;
-    Weapon weapon;
+
+    //Weapon weaponScript;
     // Variables dupliquées qui créent des dépendances
     public float speed;
     public int lives;
@@ -17,7 +17,6 @@ public class PlayerShip : MonoBehaviour
     {
         // Recherche du GameManager dans la scène
         gameManager = FindFirstObjectByType<GameManager>();
-
         // S'assurer que le joueur a les composants n�cessaires pour les collisions
         //SetupCollisionComponents(playerShip, true, false, "Player");
 
@@ -27,9 +26,13 @@ public class PlayerShip : MonoBehaviour
             gameObject.AddComponent<PlayerCollider>();
         }
 
-        weapon = new Weapon();
-        weapon.transform.parent = transform;
-        weapon.transform.localPosition = Vector3.zero;
+        //weapon = new Weapon();
+
+        // on équipe l'arme de base
+        //SwitchToWeapon(0);
+
+       // weapon.transform.parent = transform;
+       // weapon.transform.localPosition = Vector3.zero;
         // Initialisation des variables
         // speed = gameManager.playerSpeed;
         // lives = gameManager.lives;
@@ -42,7 +45,15 @@ public class PlayerShip : MonoBehaviour
         // speed = gameManager.playerSpeed;
         // lives = gameManager.lives;
     }
-
+    /*void SwitchToWeapon(int ID, Transform holder)
+    {
+        // Système pour changer d'arme si on veut ajouter plusieurs types d'armes
+        Destroy(equipedWeapon);
+        equipedWeapon = Instantiate(weapons[ID], holder.position, Quaternion.identity);
+        equipedWeapon.transform.SetParent(holder);
+        equipedWeapon.transform.localPosition = Vector3.zero;
+       // weaponScript = equipedWeapon.GetComponent<Weapon>();
+    }*/
     void HandlePlayerInput()
     {
 
@@ -76,9 +87,9 @@ public class PlayerShip : MonoBehaviour
         playerPos.z = Mathf.Clamp(playerPos.z, -11, -2.5f);
         transform.position = playerPos;
 
-        if (PlayerInputManager.instance.fireInput)
+       /* if (PlayerInputManager.instance.fireInput)
         {
             //FireBullet();        
-        }
+        }*/
     }
 }
