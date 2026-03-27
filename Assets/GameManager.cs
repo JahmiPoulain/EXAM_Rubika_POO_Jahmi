@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -605,6 +606,10 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        // il y a un bug qui fait que l'ennemi uniquement (pas l'astéroide) ne subit pas les dégats des bullets quand on RestartGame()
+        // pour que ca marche bien je fais juste un reload de la scene ( c'est honteux )
+        SceneManager.LoadScene("SampleScene");
+
         // R�initialisation du statut de game over
         isGameOver = false;
 
@@ -616,26 +621,7 @@ public class GameManager : MonoBehaviour
 
         // Remise � z�ro du jeu
         Time.timeScale = 1;
-
-        // Destruction de tous les objets
-        /*foreach (GameObject enemy in enemies)
-        {
-            Destroy(enemy);
-        }
-        enemies.Clear();
-
-        foreach (GameObject asteroid in asteroids)
-        {
-            Destroy(asteroid);
-        }
-        asteroids.Clear();
-        */
-        /*foreach (GameObject bullet in bullets)
-        {
-            Destroy(bullet);
-        }
-        bullets.Clear();
-        */
+      
         foreach (GameObject powerUp in powerUps)
         {
             Destroy(powerUp);
@@ -645,10 +631,7 @@ public class GameManager : MonoBehaviour
         // R�initialisation des variables
         score = 0;
         lives = 3;
-      //  bulletCount = 1;
         gameTime = 0f;
-     //   spawnRate = initialSpawnRate;
-      //  nextSpawnTime = Time.time + spawnRate;
 
         // Masquage du panel de game over
         gameOverPanel.SetActive(false);

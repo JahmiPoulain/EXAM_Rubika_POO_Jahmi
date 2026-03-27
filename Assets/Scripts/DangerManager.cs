@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+// Le DangerManager fait apparaitre et bouger les dangers comme l'astéroide ou l'ennemi
 public class DangerManager : MonoBehaviour
 {
     private List<GameObject> enemies = new List<GameObject>();
