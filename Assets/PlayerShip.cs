@@ -25,35 +25,13 @@ public class PlayerShip : MonoBehaviour
         {
             gameObject.AddComponent<PlayerCollider>();
         }
-
-        //weapon = new Weapon();
-
-        // on équipe l'arme de base
-        //SwitchToWeapon(0);
-
-       // weapon.transform.parent = transform;
-       // weapon.transform.localPosition = Vector3.zero;
-        // Initialisation des variables
-        // speed = gameManager.playerSpeed;
-        // lives = gameManager.lives;
     }
 
     void Update()
     {
         HandlePlayerInput();
-        // Mise à jour des variables depuis le GameManager
-        // speed = gameManager.playerSpeed;
-        // lives = gameManager.lives;
     }
-    /*void SwitchToWeapon(int ID, Transform holder)
-    {
-        // Système pour changer d'arme si on veut ajouter plusieurs types d'armes
-        Destroy(equipedWeapon);
-        equipedWeapon = Instantiate(weapons[ID], holder.position, Quaternion.identity);
-        equipedWeapon.transform.SetParent(holder);
-        equipedWeapon.transform.localPosition = Vector3.zero;
-       // weaponScript = equipedWeapon.GetComponent<Weapon>();
-    }*/
+
     void HandlePlayerInput()
     {
 
@@ -87,9 +65,5 @@ public class PlayerShip : MonoBehaviour
         playerPos.z = Mathf.Clamp(playerPos.z, -11, -2.5f);
         transform.position = playerPos;
 
-       /* if (PlayerInputManager.instance.fireInput)
-        {
-            //FireBullet();        
-        }*/
     }
 }

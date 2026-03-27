@@ -7,8 +7,6 @@ public class BulletCollider : Collider
     [Header("Explosion")]
     public ExplosionManager explosionManager;
     public GameObject explosionPrefab;
-    // [SerializeField] Vector3 boxColliderSize;
-    //[SerializeField] string objectTag;
     void Start()
     {
         SetRb();
@@ -26,7 +24,6 @@ public class BulletCollider : Collider
         if (collision.gameObject.CompareTag("Enemy"))
         {
             // Balle touche ennemi
-          //  gameManager.HandleBulletEnemyCollision(gameObject, collision.gameObject);
             gameManager.AddScore(100);
             
             // Chance de générer un power-up
@@ -40,7 +37,6 @@ public class BulletCollider : Collider
         else if (collision.gameObject.CompareTag("Asteroid"))
         {
             // Balle touche astéroïde
-            //gameManager.HandleBulletEnemyCollision(gameObject, collision.gameObject);
             gameManager.AddScore(50);
             Collided(collision.gameObject);
         }
@@ -61,6 +57,5 @@ public class BulletCollider : Collider
 
         //Destruction de la balle
         Destroy(gameObject);
-       // bullets.Remove(bullet);
     }
 } 

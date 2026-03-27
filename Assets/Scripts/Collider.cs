@@ -29,20 +29,7 @@ public abstract class Collider : MonoBehaviour
           if (boxCollider == null)
           {
             // Ajouter un BoxCollider par d�faut
-            boxCollider = gameObject.AddComponent<BoxCollider>();
-
-              // Ajuster la taille du collider en fonction du tag
-
-             /* if (tag == "Bullet")
-              {
-                  // Collider plus petit pour les balles
-                  boxCollider.size = new Vector3(0.3f, 0.3f, 0.5f);
-              }
-              else if (tag == "PowerUp")
-              {
-                  // Collider plus grand pour les power-ups pour faciliter leur collecte
-                  boxCollider.size = new Vector3(1.2f, 1.2f, 1.2f);
-              }*/
+            boxCollider = gameObject.AddComponent<BoxCollider>();            
           }
 
         // Configurer le collider comme trigger ou non

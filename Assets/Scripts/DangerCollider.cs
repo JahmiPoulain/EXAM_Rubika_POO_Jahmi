@@ -4,14 +4,7 @@ public abstract class DangerCollider : Collider
 {
     protected GameManager gameManager;
 
-   /* void Start()
-    {
-       // SetRb();
-       // gameManager = FindFirstObjectByType<GameManager>();
-        //SetupCollisionComponents(true, false, objectTag);
-        //if (tag != null)
-    }*/
-
+  
     // Utilisons OnCollisionEnter au lieu de OnTriggerEnter
     void OnCollisionEnter(Collision collision)
     {

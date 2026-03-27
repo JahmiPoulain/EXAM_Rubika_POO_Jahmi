@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PowerUpCollider : Collider
 {
-    //[SerializeField] Vector3 boxColliderSize;
-    
+
     void Start()
     {
         SetRb();

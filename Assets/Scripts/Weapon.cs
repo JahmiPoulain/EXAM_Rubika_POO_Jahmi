@@ -15,11 +15,6 @@ public class Weapon : MonoBehaviour
     protected float fireRate = 0.1f;
     float fireRateTimer;
 
-   // public TMPro.TMP_Text powerupMessageText; // Pour afficher les messages de powerup
-    private void Start()
-    {
-       //if (powerupMessageText) powerupMessageText.gameObject.SetActive(false);
-    }
     private void Update()
     {
         fireRateTimer += Time.deltaTime;
@@ -54,9 +49,6 @@ public class Weapon : MonoBehaviour
 
             // Instanciation du projectile
             GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
-
-            // Configuration des composants de collision pour la balle
-            // Les projectiles doivent avoir un Rigidbody pour les collisions
             
 
             // Ajouter le script de gestion de collision � la balle
@@ -90,16 +82,4 @@ public class Weapon : MonoBehaviour
             StartCoroutine(GameManager.instance.ShowPowerupMessage("Max Weapon Level! +200 Score"));
         }
     }
-
-   /* IEnumerator ShowPowerupMessage(string message)
-    {
-        if (powerupMessageText != null)
-        {
-            powerupMessageText.text = message;
-            powerupMessageText.gameObject.SetActive(true);
-            yield return new WaitForSeconds(2.0f);
-            powerupMessageText.gameObject.SetActive(false);
-        }
-        yield return null;
-    }*/
 }
